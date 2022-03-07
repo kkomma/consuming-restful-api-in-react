@@ -1,21 +1,21 @@
 import React,{ useEffect,useState }  from 'react'
 
-const Contacts = ({}) => {
 
+const ContactsSingle = ({}) => {
     const [contacts, setContacts] = useState([]);
 
     useEffect(() => {
-     fetch('http://jsonplaceholder.typicode.com/users')
+     const rndInt = Math.floor(Math.random() * 8) + 1
+     fetch('http://jsonplaceholder.typicode.com/users/'+String(rndInt))
             .then(res => res.json())
             .then((contacts) => {    
-                setContacts(contacts);
+                setContacts([contacts]);
         })
         .catch(console.log)
     }, [])
-
     return (
         <div>
-            <center><h1>All Contact List</h1></center>
+            <center><h1>Single Contact List</h1></center>
             {contacts.map((contact) => (                            
                 <div class="card">
                     <div class="card-body">
@@ -27,9 +27,6 @@ const Contacts = ({}) => {
             ))}
         </div>
     )
-
-
-    
 };
 
-export default Contacts
+export default ContactsSingle

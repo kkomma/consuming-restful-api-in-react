@@ -1,29 +1,37 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Contacts from './components/contacts';
+import ContactsSingle from './components/contactssingle';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
-class App extends Component {
+
+class App extends Component {  
     render() {
+        
         return (
-            <Contacts contacts={this.state.contacts} />
+            <Router>
+                <div>        
+                <ul>
+                    <li>
+                    <Link to="/users">Users</Link>
+                    </li>
+                    <li>
+                    <Link to="/single">Single</Link>
+                    </li>                                       
+                </ul>                                       
+                <Switch>
+                <Route exact path="/users" component={Contacts} />                
+                <Route exact path="/single" component={ContactsSingle} />                
+                </Switch>       
+                </div>       
+            </Router>                        
         )
     }
 
-    state = {
-        contacts: []
-    };
-
-    componentDidMount() {
-        fetch('http://jsonplaceholder.typicode.com/users')
-            .then(res => res.json())
-            .then((data) => {
-                if(data instanceof Array){
-                    this.setState({ contacts: data })
-                }else{
-                    this.setState({ contacts: [data] })
-                }   
-            })
-            .catch(console.log)
-    }
 }
 
 export default App;
